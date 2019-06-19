@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test</title>
+  <style>
+    table{
+      text-align: center;
+    }
+    td{
+      padding:0 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="./build/main.js"></script>
+  <script>
+    const a = [
+      "#FFFFFF",
+      "#808080",
+      "#FF0000",
+      "#F00",
+      "#F008",
+      "#BFBF00",
+      "#008000",
+      "#80FFFF",
+      "#8080FF",
+      "#BF40BF",
+      "#A0A424",
+      "#411BEA",
+      "#1EAC41",
+      "#F0C80E",
+      "#B430E5",
+      "#ED7651",
+      "#FEF888",
+      "#19CB97",
+      "#362698",
+      "#7E7EB8",
+      "#7E7EB899",
+      "rgb(126,126,184)",
+      "rgb(126,126,184,1)",
+      "rgb(126,126,184,100%)",
+      "rgb(126 126 184)",
+      "rgb(126  126  184)",
+      "rgb(126 126 184 / 1)",
+      "rgb(126 126 184 / 100%)",
+      "rgba(126,126,184,0.4)",
+      "rgba(126,126,184,40%)",
+      "rgba(126 126 184)",
+      "rgba(126 126 184 / 0.4)",
+      "rgba(126 126 184 / 40%)",
+      "hsl(240,29%,61%)",
+      "hsl(240,29%,61%,1)",
+      "hsl(240,29%,61%,100%)",
+      "hsl(240 29% 61% / 1)",
+      "hsl(240 29% 61% / 100%)",
+      "hsla(240,29%,61%,0.4)",
+      "hsla(240,29%,61%,40%)",
+      "hsla(240 29% 61% / 0.4)",
+      "hsla(240 29% 61% / 40%)",
+      "rebeccapurple",
+      "yellowgreen",
+    ]
+    const colors = a.map(hex => {
+      return {key:hex,color:new Color(hex)}
+    });
+    const tableHead = `
+    <table>
+    <thead>
+      <tr>
+        <th>input</th>
+        <th>R/0xff</th>
+        <th>G/0xff</th>
+        <th>B/0xff</th>
+        <th>R</th>
+        <th>G</th>
+        <th>B</th>
+        <th>H</th>
+        <th>L</th>
+        <th>S</th>
+        <th>hex</th>
+        <th>rgb</th>
+        <th>rgba</th>
+        <th>hsl</th>
+        <th>hsla</th>
+      </tr>
+    </thead>
+    <tbody>
+    `;
+    const tableTail = `</tbody>
+  </table>`
+  const table = colors.reduce((pre,cur)=>{
+    return pre + `<tr>
+      <td>${cur.key}</td>
+      <td>${(cur.color.R / 0xff).toFixed(2)}</td>
+      <td>${(cur.color.G / 0xff).toFixed(2)}</td>
+      <td>${(cur.color.B / 0xff).toFixed(2)}</td>
+      <td>${cur.color.R}</td>
+      <td>${cur.color.G}</td>
+      <td>${cur.color.B}</td>
+      <td>${cur.color.H}</td>
+      <td>${cur.color.L}</td>
+      <td>${cur.color.S}</td>
+      <td>${cur.color.toHex()}</td>
+      <td>${cur.color.toHexa()}</td>
+      <td>${cur.color.toRgb()}</td>
+      <td>${cur.color.toRgba()}</td>
+      <td>${cur.color.toHsl()}</td>
+      <td>${cur.color.toHsla()}</td>
+    </tr>`
+  },tableHead) + tableTail;
+  document.getElementById("test").innerHTML = table;
+  </script>
+</body>
+</html>
