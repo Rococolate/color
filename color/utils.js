@@ -57,7 +57,7 @@ export function hsl2rgb(H,S,L){
     [r,g,b] = [c,0,x];
   }
   const m = lightness - c / 2;
-  const [R,G,B] = [r + m,g + m,b + m];
+  const [R,G,B] = [Math.abs(r + m),Math.abs(g + m),Math.abs(b + m)];
   return {
     R:R * 0xff,G:G * 0xff,B:B * 0xff
   }

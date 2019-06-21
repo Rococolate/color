@@ -1,6 +1,13 @@
 import {rgb2hsl, hsl2rgb, charCodeHex, num2per, isString, keywordColorValues} from "./utils.js"
 export default class Color{
   constructor(str){
+    this.A = 1;
+    this.R = 0;
+    this.G = 0;
+    this.B = 0;
+    this.H = 0;
+    this.S = 0;
+    this.L = 0;
     this.init(str);
   }
   init(str){
@@ -153,6 +160,26 @@ export default class Color{
     const b = parseInt(this.B).toString(16).toUpperCase();
     const a = parseInt(this.A * 0xff).toString(16).toUpperCase();
     return (`#${r.length === 1 ? "0" + r : r}${g.length === 1 ? "0" + g : g}${b.length === 1 ? "0" + b : b}${hasAlpha ? a.length === 1 ? "0" + a : a : ""}`);
+  }
+  changeHSL([H,S,L]){
+    this.H = H;
+    this.S = S;
+    this.L = L;
+    this.check({H,S,L});
+    const {R,G,B} = hsl2rgb(this.H,this.S,this.L);
+    this.R = R;
+    this.G = G;
+    this.B = B;
+  }
+  changeRGB([R,G,B]){
+    this.R = R;
+    this.G = G;
+    this.B = B;
+    this.check({R,G,B});
+    const {H,S,L} = rgb2hsl(this.R,this.G,this.B);
+    this.H = H;
+    this.S = S;
+    this.L = L;
   }
 }
 

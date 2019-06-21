@@ -159,9 +159,10 @@ var Color = (function () {
     }
 
     var m = lightness - c / 2;
-    var R = r + m,
-        G = g + m,
-        B = b + m;
+    var _ref = [Math.abs(r + m), Math.abs(g + m), Math.abs(b + m)],
+        R = _ref[0],
+        G = _ref[1],
+        B = _ref[2];
     return {
       R: R * 0xff,
       G: G * 0xff,
@@ -336,6 +337,13 @@ var Color = (function () {
     function Color(str) {
       _classCallCheck(this, Color);
 
+      this.A = 1;
+      this.R = 0;
+      this.G = 0;
+      this.B = 0;
+      this.H = 0;
+      this.S = 0;
+      this.L = 0;
       this.init(str);
     }
 
@@ -600,6 +608,58 @@ var Color = (function () {
         var b = parseInt(this.B).toString(16).toUpperCase();
         var a = parseInt(this.A * 0xff).toString(16).toUpperCase();
         return "#".concat(r.length === 1 ? "0" + r : r).concat(g.length === 1 ? "0" + g : g).concat(b.length === 1 ? "0" + b : b).concat(hasAlpha ? a.length === 1 ? "0" + a : a : "");
+      }
+    }, {
+      key: "changeHSL",
+      value: function changeHSL(_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 3),
+            H = _ref3[0],
+            S = _ref3[1],
+            L = _ref3[2];
+
+        this.H = H;
+        this.S = S;
+        this.L = L;
+        this.check({
+          H: H,
+          S: S,
+          L: L
+        });
+
+        var _hsl2rgb2 = hsl2rgb(this.H, this.S, this.L),
+            R = _hsl2rgb2.R,
+            G = _hsl2rgb2.G,
+            B = _hsl2rgb2.B;
+
+        this.R = R;
+        this.G = G;
+        this.B = B;
+      }
+    }, {
+      key: "changeRGB",
+      value: function changeRGB(_ref4) {
+        var _ref5 = _slicedToArray(_ref4, 3),
+            R = _ref5[0],
+            G = _ref5[1],
+            B = _ref5[2];
+
+        this.R = R;
+        this.G = G;
+        this.B = B;
+        this.check({
+          R: R,
+          G: G,
+          B: B
+        });
+
+        var _rgb2hsl3 = rgb2hsl(this.R, this.G, this.B),
+            H = _rgb2hsl3.H,
+            S = _rgb2hsl3.S,
+            L = _rgb2hsl3.L;
+
+        this.H = H;
+        this.S = S;
+        this.L = L;
       }
     }]);
 
